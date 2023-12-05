@@ -1,39 +1,71 @@
-# Http::Wrapper
+# HTTP Wrapper
 
-TODO: Delete this and the text below, and describe your gem
+El HTTP Wrapper es una gema que proporciona una interfaz simple para realizar solicitudes HTTP utilizando Faraday. Esta gema está diseñada para encapsular la lógica de manejo de errores comunes y proporcionar una interfaz clara para realizar solicitudes a través de Faraday..
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/http/wrapper`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Instalación
 
-## Installation
+```ruby
+gem 'http-wrapper'
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+```
+O instálalo manualmente con:
+```ruby
+gem install http-wrapper
+```
 
-Install the gem and add to the application's Gemfile by executing:
+## Uso
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+### Configuración
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+```ruby
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+require 'http/wrapper'
 
-## Usage
+# Define las opciones de configuración
+base_url = 'https://api.example.com'
+api_endpoint = '/endpoint'
+headers = { 'Content-Type' => 'application/json' }
 
-TODO: Write usage instructions here
+# Crea una instancia de Configuration
+configuration = Http::Wrapper::Configuration.new(
+  base_url: base_url,
+  api_endpoint: api_endpoint,
+  headers: headers
+)
 
-## Development
+# Crea una conexión Faraday
+connection = configuration.connection
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# ...continúa con tu lógica de manejo de conexiones...
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```
 
-## Contributing
+### Realizar una Solicitud
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/http-wrapper. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/http-wrapper/blob/master/CODE_OF_CONDUCT.md).
+```ruby
+require 'http/wrapper'
+
+# Crea una instancia de Client con la configuración previamente definida
+client = Http::Wrapper::Client.new(
+  base_url: base_url,
+  api_endpoint: api_endpoint,
+  headers: headers
+)
+
+# Realiza una solicitud GET
+response = client.request(http_method: :get, endpoint: '/example')
+
+# Maneja la respuesta según sea necesario
+puts response
+
+```
+## Errores Comunes
+
+El HTTP Wrapper maneja automáticamente los errores HTTP comunes y los encapsula en excepciones específicas para facilitar el manejo.
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+[MIT](https://choosealicense.com/licenses/mit/)
 
-## Code of Conduct
 
-Everyone interacting in the Http::Wrapper project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/http-wrapper/blob/master/CODE_OF_CONDUCT.md).
+Si tienes más preguntas o necesitas ayuda con los otros READMEs, no dudes en preguntar.
